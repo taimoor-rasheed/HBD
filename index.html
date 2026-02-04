@@ -29,7 +29,8 @@ p{color:var(--muted);font-size:1.1rem;line-height:1.8;}
 .countdown{display:flex;gap:1.5rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;}
 .time{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:1rem 1.2rem;flex:1 1 80px;min-width:70px;}
 .time span{font-size:1.8rem;font-weight:700;}
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;opacity:0;transition:1s;}
+.gallery.show{opacity:1;}
 .gallery img{width:100%;border-radius:20px;transition:.4s;object-fit:cover;display:block;}
 .gallery img:hover{transform:scale(1.05);}
 .heart{position:fixed;font-size:20px;pointer-events:none;opacity:.8;}
@@ -86,9 +87,21 @@ p{color:var(--muted);font-size:1.1rem;line-height:1.8;}
 
 <section>
   <div class="card fade">
-    <h2>My Favorite Person 📸</h2>
-    <div class="gallery">
-      <!-- Encode spaces/apostrophes for iPhone -->
+    <h2>Forever Yours</h2>
+    <div id="love">I LOVE YOU ❤️</div>
+  </div>
+</section>
+
+<section>
+  <div class="card fade">
+    <h2>Your Birthday Card & Gift 🎁</h2>
+    <button class="btn" id="cardBtn">Open Birthday Card 🎂</button><br>
+    <button class="btn" id="giftBtn">Your Gift 🎁</button>
+    <button class="btn" id="galleryBtn">Our Moments 📸</button>
+    <img id="teddy" src="images/teddy.jpg" alt="Cute Teddy Bear">
+    
+    <!-- Gallery hidden initially -->
+    <div class="gallery" id="gallery" style="margin-top:2rem; display:none;">
       <img src="images/image1.jpeg" alt="1">
       <img src="images/image2.jpeg" alt="2">
       <img src="images/image3.jpeg" alt="3">
@@ -102,22 +115,6 @@ p{color:var(--muted);font-size:1.1rem;line-height:1.8;}
   </div>
 </section>
 
-<section>
-  <div class="card fade">
-    <h2>Forever Yours</h2>
-    <div id="love">I LOVE YOU ❤️</div>
-  </div>
-</section>
-
-<section>
-  <div class="card fade">
-    <h2>Your Birthday Card & Gift 🎁</h2>
-    <button class="btn" id="cardBtn">Open Birthday Card 🎂</button><br>
-    <button class="btn" id="giftBtn">Your Gift 🎁</button>
-    <img id="teddy" src="images/teddy.jpg" alt="Cute Teddy Bear">
-  </div>
-</section>
-
 <div id="birthdayCardOverlay">
   <div id="birthdayCard">
     <h2>Happy Birthday Maryam Khan!</h2>
@@ -126,34 +123,52 @@ p{color:var(--muted);font-size:1.1rem;line-height:1.8;}
 </div>
 
 <script>
+/* === START & FADE === */
 function start(){document.getElementById("music").play().catch(()=>{});scrollBy({top:innerHeight,behavior:"smooth"});}
 document.querySelectorAll(".fade").forEach(el=>new IntersectionObserver(e=>{if(e[0].isIntersecting)el.classList.add("show");},{threshold:.3}).observe(el));
 
+/* === TYPING === */
 const text=`Maryam,\nYou are my calm,\nmy chaos,\nand my constant.\nEvery version of my future,\nI see you there ❤️`;let ti=0;(function type(){if(ti<text.length){typing.innerHTML+=text[ti++];setTimeout(type,50);}})();
 
+/* === COUNTDOWN 5 FEB === */
 function getBirthday(){const now=new Date();let year=now.getFullYear();let bd=new Date(year,1,5,0,0,0);if(bd<now)bd=new Date(year+1,1,5,0,0,0);return bd;}
 setInterval(()=>{const diff=getBirthday()-new Date();d.textContent=Math.floor(diff/86400000);h.textContent=Math.floor(diff/3600000)%24;m.textContent=Math.floor(diff/60000)%60;s.textContent=Math.floor(diff/1000)%60;},1000);
 
+/* === STARS === */
 const sc=document.getElementById("stars"),sctx=sc.getContext("2d");
 function rs(){sc.width=innerWidth;sc.height=innerHeight}rs();addEventListener("resize",rs);
 const stars=Array.from({length:220},()=>({x:Math.random()*sc.width,y:Math.random()*sc.height,r:Math.random()*1.5,s:Math.random()+.4}));
 (function anim(){sctx.clearRect(0,0,sc.width,sc.height);stars.forEach(st=>{st.y+=st.s;if(st.y>sc.height)st.y=0;sctx.beginPath();sctx.arc(st.x,st.y,st.r,0,Math.PI*2);sctx.fillStyle="white";sctx.fill();});requestAnimationFrame(anim);})();
 
+/* === LOVE REVEAL === */
 setTimeout(()=>love.style.opacity=1,2000);
 
+/* === HEARTS === */
 setInterval(()=>{const h=document.createElement("div");h.className="heart";h.textContent="❤️";h.style.left=Math.random()*window.innerWidth+"px";h.style.top=window.innerHeight+window.scrollY+"px";document.body.appendChild(h);let t=0;function animHeart(){t+=2;h.style.top=(window.innerHeight+window.scrollY-t)+"px";if(t<window.innerHeight+50){requestAnimationFrame(animHeart)}else{h.remove();}}animHeart();},400);
 
-addEventListener("click",e=>{for(let i=0;i<3;i++){const h=document.createElement("div");h.className="heart";h.textContent="❤️";h.style.left=e.clientX+Math.random()*20+"px";h.style.top=e.clientY+Math.random()*20+"px";document.body.appendChild(h);setTimeout(()=>h.remove(),4000);}if(teddy.classList.contains("show") && e.target !== giftBtn && e.target !== cardBtn) teddy.classList.remove("show");});
+addEventListener("click",e=>{for(let i=0;i<3;i++){const h=document.createElement("div");h.className="heart";h.textContent="❤️";h.style.left=e.clientX+Math.random()*20+"px";h.style.top=e.clientY+Math.random()*20+"px";document.body.appendChild(h);setTimeout(()=>h.remove(),4000);}if(teddy.classList.contains("show") && e.target !== giftBtn && e.target !== cardBtn && e.target !== galleryBtn) teddy.classList.remove("show");});
 
+/* === BIRTHDAY CARD === */
 const overlay=document.getElementById("birthdayCardOverlay");
 const card=document.getElementById("birthdayCard");
 const cardBtn=document.getElementById("cardBtn");
 cardBtn.onclick=function(e){e.stopPropagation();overlay.classList.add("show");setTimeout(()=>card.classList.add("show"),50);};
 
+/* === GIFT BUTTON & TEDDY === */
 const giftBtn=document.getElementById("giftBtn");
 const teddy=document.getElementById("teddy");
 giftBtn.onclick=function(e){e.stopPropagation();teddy.style.display="block";setTimeout(()=>teddy.classList.add("show"),50);};
 
+/* === GALLERY BUTTON === */
+const galleryBtn = document.getElementById("galleryBtn");
+const gallery = document.getElementById("gallery");
+galleryBtn.onclick = function(e){
+  e.stopPropagation();
+  gallery.style.display = "grid";
+  setTimeout(()=>gallery.classList.add("show"),50);
+};
+
+/* === CLOSE CARD === */
 overlay.onclick=function(e){if(e.target===overlay){card.classList.remove("show");setTimeout(()=>overlay.classList.remove("show"),500);}};
 </script>
 </body>
