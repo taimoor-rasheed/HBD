@@ -39,9 +39,39 @@ p{color:var(--muted);font-size:1.1rem;line-height:1.8;}
 
 /* Birthday card popup */
 #birthdayCardOverlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s;z-index:101;}
-#birthdayCard{width:400px;height:250px;background:linear-gradient(145deg,#ffdde1,#ffe4f0);border-radius:20px;transform:rotateY(90deg);transform-origin:left;transition:transform 1s;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4);}
-#birthdayCard h2{font-size:1.8rem;color:#d6336c;margin-bottom:1rem;}
-#birthdayCard p{font-size:1.1rem;color:#222;}
+#birthdayCard{
+  width: min(90vw, 420px);
+  max-height: 80vh;
+  overflow-y: auto;
+  background: linear-gradient(145deg,#ffdde1,#ffe4f0);
+  border-radius: 20px;
+  transform: rotateY(90deg);
+  transform-origin: left;
+  transition: transform 1s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align from top */
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.4);
+}
+#birthdayCard h2{
+  font-size:1.8rem;
+  color:#d6336c;
+  margin-bottom:1rem;
+}
+#birthdayCard h3{
+  font-size:1.5rem;
+  color:#d6336c;
+  margin-bottom:1rem;
+}
+#birthdayCard p{
+  font-size:1.1rem;
+  color:#222;
+  line-height:1.7;
+  white-space: pre-line;
+}
 #birthdayCardOverlay.show{opacity:1;pointer-events:auto;}
 #birthdayCard.show{transform:rotateY(0);}
 
@@ -68,7 +98,7 @@ p{color:var(--muted);font-size:1.1rem;line-height:1.8;}
 
 <section>
   <div class="card fade">
-    <h2>From My Heart</h2>
+    <h2>❤️ From My Heart ❤️</h2>
     <div id="typing"></div>
   </div>
 </section>
@@ -117,8 +147,20 @@ p{color:var(--muted);font-size:1.1rem;line-height:1.8;}
 
 <div id="birthdayCardOverlay">
   <div id="birthdayCard">
-    <h2>Happy Birthday Maryam Khan!</h2>
-    <p>You are the sunshine of my life. Wishing you love, laughter, and endless happiness ❤️</p>
+    <h2>HAPPY BIRTHDAY 🎉</h2>
+    <h3>Maryam Khan!</h3>
+    <p>
+Janu Maryam, Happy Birthday meri zindagi ki sabse pyari aur khaas shakhs! 🎉💖
+Tum meri duniya ho, meri har khushi ka reason ho, aur meri zindagi ka sabse khoobsurat hissa ho. Tumhara pyar, tumhara saath mere liye sabse badi blessing hai. 🌸✨
+
+Har din mai dua karta hoon ke tumhare har khuwaab or khuwahishat poori hon, aur mai hamesha tumhare saath rahun, tumhe support karun aur tumhe khush rakhun. Tum meri chhoti si duniya ho, jahan mai sabse zyada lucky aur khush mehsoos karta hoon. 🌹💫
+
+Jab bhi mai tumhe dekhta hoon, sare ghum bhool jata hn. Tumhari har muskurahat, tumhara pyar, aur tumhari har baat mujhe har din aur zyada pyar karne par majboor karti hai. Mai duniya ka sabse lucky insan hoon ke mujhe tum jaise amazing, caring aur loving insan mili. 💕🌟
+
+Aur ek baat… agar kabhi meri koi baat tumhe hurt ki ho ya ghalat lagi ho, to please mujhe maaf kar dena. 🙏💔 Mai apni sari ghaltiyon ki maafi tumse mangta hoon, bas tum hamesha khush raho aur tumhari zindagi me sirf pyar aur khushi ho. 💖🌷
+
+Happy Birthday meri jaan! 🥰🎂🎈 ❤️ Tum meri har khushi ka reason ho aur hamesha meri zindagi ka sabse pyara hissa rahoge. 🥰🎂🎈 ❤️
+    </p>
   </div>
 </div>
 
