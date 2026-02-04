@@ -47,6 +47,24 @@ p{color:var(--muted);font-size:1.1rem;line-height:1.8;}
 /* Teddy bear */
 #teddy{position:fixed;bottom:-400px;left:50%;transform:translateX(-50%);width:250px;transition:all 1s ease;z-index:100;display:none;}
 #teddy.show{bottom:50px;transform:translateX(-50%) scale(1.2);}
+
+/* === MOBILE FIXES === */
+@media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.8rem;
+  }
+  
+  .countdown {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .time {
+    flex: 1 1 40%;
+    padding: 0.8rem;
+  }
+}
 </style>
 </head>
 <body>
@@ -89,7 +107,7 @@ p{color:var(--muted);font-size:1.1rem;line-height:1.8;}
     <h2>My Favorite Person 📸</h2>
     <div class="gallery">
       <img src="images/image1.jpeg">
-<img src="images/image2.jpeg">
+      <img src="images/image2.jpeg">
       <img src="images/image3.jpeg">
       <img src="images/image4.jpeg">
       <img src="images/image5.jpeg">
@@ -150,45 +168,23 @@ const stars=Array.from({length:220},()=>({x:Math.random()*sc.width,y:Math.random
 setTimeout(()=>love.style.opacity=1,2000);
 
 /* === HEARTS === */
-setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart";
-  h.textContent="❤️";
-  h.style.left=Math.random()*window.innerWidth+"px";
-  h.style.top=window.innerHeight+window.scrollY+"px";
-  document.body.appendChild(h);
-  let t=0;
-  function animHeart(){t+=2;h.style.top=(window.innerHeight+window.scrollY-t)+"px";if(t<window.innerHeight+50){requestAnimationFrame(animHeart)}else{h.remove();}}animHeart();
-},400);
+setInterval(()=>{const h=document.createElement("div");h.className="heart";h.textContent="❤️";h.style.left=Math.random()*window.innerWidth+"px";h.style.top=window.innerHeight+window.scrollY+"px";document.body.appendChild(h);let t=0;function animHeart(){t+=2;h.style.top=(window.innerHeight+window.scrollY-t)+"px";if(t<window.innerHeight+50){requestAnimationFrame(animHeart)}else{h.remove();}}animHeart();},400);
 
-addEventListener("click",e=>{
-  for(let i=0;i<3;i++){const h=document.createElement("div");h.className="heart";h.textContent="❤️";h.style.left=e.clientX+Math.random()*20+"px";h.style.top=e.clientY+Math.random()*20+"px";document.body.appendChild(h);setTimeout(()=>h.remove(),4000);}
-  if(teddy.classList.contains("show") && e.target !== giftBtn && e.target !== cardBtn) teddy.classList.remove("show");
-});
+addEventListener("click",e=>{for(let i=0;i<3;i++){const h=document.createElement("div");h.className="heart";h.textContent="❤️";h.style.left=e.clientX+Math.random()*20+"px";h.style.top=e.clientY+Math.random()*20+"px";document.body.appendChild(h);setTimeout(()=>h.remove(),4000);}if(teddy.classList.contains("show") && e.target !== giftBtn && e.target !== cardBtn) teddy.classList.remove("show");});
 
 /* === BIRTHDAY CARD === */
 const overlay=document.getElementById("birthdayCardOverlay");
 const card=document.getElementById("birthdayCard");
 const cardBtn=document.getElementById("cardBtn");
-cardBtn.onclick=function(e){
-  e.stopPropagation();
-  overlay.classList.add("show");
-  setTimeout(()=>card.classList.add("show"),50);
-};
+cardBtn.onclick=function(e){e.stopPropagation();overlay.classList.add("show");setTimeout(()=>card.classList.add("show"),50);};
 
 /* === GIFT BUTTON & TEDDY === */
 const giftBtn=document.getElementById("giftBtn");
 const teddy=document.getElementById("teddy");
-giftBtn.onclick=function(e){
-  e.stopPropagation();
-  teddy.style.display="block";
-  setTimeout(()=>teddy.classList.add("show"),50);
-};
+giftBtn.onclick=function(e){e.stopPropagation();teddy.style.display="block";setTimeout(()=>teddy.classList.add("show"),50);};
 
 /* === CLOSE CARD === */
-overlay.onclick=function(e){
-  if(e.target===overlay){card.classList.remove("show");setTimeout(()=>overlay.classList.remove("show"),500);}
-};
+overlay.onclick=function(e){if(e.target===overlay){card.classList.remove("show");setTimeout(()=>overlay.classList.remove("show"),500);}};
 </script>
 </body>
 </html>
