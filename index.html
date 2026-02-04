@@ -159,13 +159,19 @@ const giftBtn=document.getElementById("giftBtn");
 const teddy=document.getElementById("teddy");
 giftBtn.onclick=function(e){e.stopPropagation();teddy.style.display="block";setTimeout(()=>teddy.classList.add("show"),50);};
 
-/* === GALLERY BUTTON === */
+/* === GALLERY BUTTON TOGGLE === */
 const galleryBtn = document.getElementById("galleryBtn");
 const gallery = document.getElementById("gallery");
+
 galleryBtn.onclick = function(e){
   e.stopPropagation();
-  gallery.style.display = "grid";
-  setTimeout(()=>gallery.classList.add("show"),50);
+  if(gallery.style.display === "grid"){ // hide
+    gallery.classList.remove("show");
+    setTimeout(()=>gallery.style.display="none", 500);
+  } else { // show
+    gallery.style.display = "grid";
+    setTimeout(()=>gallery.classList.add("show"),50);
+  }
 };
 
 /* === CLOSE CARD === */
